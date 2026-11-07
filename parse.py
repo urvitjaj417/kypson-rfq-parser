@@ -250,7 +250,7 @@ def _tidy_location(value: str) -> Optional[str]:
     value = re.sub(r"\s+", " ", value).strip(" .:-")
     value = re.sub(r"\b(?:please|pls|plz|only|required|needed|quote)\b.*$", "", value, flags=re.IGNORECASE).strip(" .:-")
     # Do not mistake a measurement tail or product phrase for a location.
-    if not value or len(value) > 60 or re.search(r"\d", value):
+    if not value or len(value) > 60 or re.search(r"\d", value) or re.search(r"\b(?:no|quantity|qty|amount|order|yet|unknown|tbd)\b", value, re.IGNORECASE):
         return None
     return value[:1].upper() + value[1:]
 
